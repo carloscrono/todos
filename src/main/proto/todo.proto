@@ -7,6 +7,9 @@ option java_outer_classname = "TodoProto";
 service TodoService {
   rpc CreateTodo (TodoRequest) returns (TodoResponse);
   rpc GetTodo (TodoId) returns (TodoResponse);
+  rpc GetAllTodos (Empty) returns (TodoList);
+  rpc UpdateTodo (Todo) returns (TodoResponse);
+  rpc DeleteTodo (TodoId) returns (Empty);
 }
 
 message Todo {
@@ -26,4 +29,10 @@ message TodoResponse {
 
 message TodoId {
   int64 id = 1;
+}
+
+message Empty {}
+
+message TodoList {
+  repeated Todo todos = 1;
 }

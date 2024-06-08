@@ -1,6 +1,7 @@
 package com.api.todos.service;
 
 import com.api.todos.dao.TodoDAO;
+import com.api.todos.exception.TodoNotFoundException;
 import com.api.todos.model.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,11 @@ public class TodoService {
     }
 
     public Todo getTodoById(Long id) {
-        return todoDAO.findById(id);
+        Todo todo = todoDAO.findById(id);
+        if (todo == null) {
+            throw new TodoNotFoundException("Todo with id " + id + " not found");
+        }
+        return todo;
     }
 
     public Todo createTodo(Todo todo) {
@@ -31,8 +36,8 @@ public class TodoService {
         return todo;
     }
 
-    public void deleteTodo(Long id) {
-        todoDAO.deleteById(id);
+    public Long deleteTodo(Long id) {
+        return todoDAO.deleteById(id);
     }
 }
 
