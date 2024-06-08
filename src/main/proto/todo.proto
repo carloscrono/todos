@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.api.todos.grpc";
+option java_outer_classname = "TodoProto";
+
+service TodoService {
+  rpc CreateTodo (TodoRequest) returns (TodoResponse);
+  rpc GetTodo (TodoId) returns (TodoResponse);
+}
+
+message Todo {
+  int64 id = 1;
+  string description = 2;
+  bool completed = 3;
+}
+
+message TodoRequest {
+  string description = 1;
+  bool completed = 2;
+}
+
+message TodoResponse {
+  Todo todo = 1;
+}
+
+message TodoId {
+  int64 id = 1;
+}
